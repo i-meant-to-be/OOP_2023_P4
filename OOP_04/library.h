@@ -23,17 +23,21 @@ private:
     int currStudentId = 0;
 
 public:
+    // Add elements
     void addBook(const String& title, const String& author, const String& pubDate);
     void addStudent(const String& name);
 
+    // Borrow and return books
     void borrowBook(int bookId, int studentId);
     void returnBook(int bookId);
 
+    // Sorting methods
     void sortBooksByTitle();
     void sortBooksByAuthor();
     void sortBooksByPublishedDate();
     void sortBooksByBorrowedCount();
 
+    // File I/O methods
     bool readData();
     bool writeData();
 };

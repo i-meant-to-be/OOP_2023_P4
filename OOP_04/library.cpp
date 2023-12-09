@@ -6,6 +6,7 @@
 //
 // ----------------------------------------
 
+// Add elements
 void Library::addBook(const String& title, const String& author, const String& pubDate) {
     books.emplace_back(title, author, pubDate, currBookId++);
 }
@@ -14,6 +15,7 @@ void Library::addStudent(const String& name) {
     students.emplace_back(name, currStudentId++);
 }
 
+// Borrow and return books
 void Library::borrowBook(int bookId, int studentId) {
     if (bookId < 0 || bookId >= books.size() || studentId < 0 || studentId >= students.size()) {
         cout << "Invalid book or student id." << endl;
@@ -54,6 +56,7 @@ void Library::returnBook(int bookId) {
     }
 }
 
+// Sorting methods
 void Library::sortBooksByTitle() {
     sort(books.begin(), books.end(), [](const Book& a, const Book& b) {
         return a.getTitle() < b.getTitle();
@@ -78,6 +81,7 @@ void Library::sortBooksByBorrowedCount() {
         });
 }
 
+// File I/O methods
 bool Library::readData() {
     fstream bookFile;
     fstream studentFile;
