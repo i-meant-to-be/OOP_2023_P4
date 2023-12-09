@@ -129,13 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="book.cpp" />
-    <ClCompile Include="book.h" />
-    <ClCompile Include="io_service.cpp" />
-    <ClCompile Include="library_service.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="student.cpp" />
-    <ClCompile Include="student.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
