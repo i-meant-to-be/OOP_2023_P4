@@ -119,10 +119,7 @@ int main() {
                 break;
             case SCREEN_SORT_BOOKS:
                 printSortBooks(args);
-                if (args == 2) library.sortBooksByAuthor();
-                else if (args == 3) library.sortBooksByPublishedDate();
-                else if (args == 3) library.sortBooksByBorrowedCount();
-                else library.sortBooksByTitle();
+                library.nSetSortOptions(args);
                 break;
             case SCREEN_BORROW:
                 int bookId, studentId;
@@ -288,23 +285,23 @@ void printSortBooks(int& args) {
     
     if (input[0] == '1') {
         cout << "# From now on, books will sorted by title. \n";
-        args = 1;
+        args = 0;
     }
     else if (input[0] == '2') {
         cout << "# From now on, books will sorted by author. \n";
-        args = 2;
+        args = 1;
     }
     else if (input[0] == '3') {
         cout << "# From now on, books will sorted by published date. \n";
-        args = 3;
+        args = 2;
     }
     else if (input[0] == '4') {
         cout << "# From now on, books will sorted by borrowed count. \n";
-        args = 4;
+        args = 3;
     }
     else {
         cout << "# Wrong input, automatically sorted by title. \n";
-        args = 1;
+        args = 0;
     }
 }
 
