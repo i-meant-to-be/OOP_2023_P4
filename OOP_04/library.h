@@ -6,6 +6,7 @@
 #include <fstream>
 #include <algorithm>
 #include <string>
+#include <map>
 #include "student.h"
 #include "book.h"
 
@@ -27,6 +28,8 @@ class Library {
 private:
     vector<Book> books;
     vector<Student> students;
+    map<int, Book> nBooks;
+    map<int, Student> nStudents;
     int currBookId = 0;
     int currStudentId = 0;
     SortOptions sortOptions = DEFALUT;
@@ -55,6 +58,21 @@ public:
     // File I/O methods
     bool readData();
     bool writeData();
+
+    // Map methods
+    void nPrintAllStudents();
+    void nPrintAllBooks();
+
+    void nAddBook(const String& title, const String& author, const String& pubDate);
+    void nAddStudent(const String& name);
+    void nAddBook(Book& book);
+    void nAddStudent(Student& student);
+
+    void nBorrowBook(int bookId, int studentId);
+    void nReturnBook(int bookId);
+
+    bool nReadData();
+    bool nWriteData();
 };
 
 

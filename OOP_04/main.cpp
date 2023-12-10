@@ -46,11 +46,13 @@ int main() {
     Screen screen = SCREEN_DEFAULT;
     int args;
 
-    if (library.readData()) {
+    // if (library.readData()) {
+    if (library.nReadData()) {
         while (screen != SCREEN_EXIT) {
             printMainMenu();
             navigate(screen, args);
 
+            /*
             switch (screen) {
             case SCREEN_SHOW:
                 printShow(args);
@@ -94,6 +96,55 @@ int main() {
             case SCREEN_EXIT:
                 cout << "### Exit program.\n";
                 library.writeData();
+                break;
+            default:
+                break;
+            }
+            */
+            switch (screen) {
+            case SCREEN_SHOW:
+                printShow(args);
+                if (args == 0) library.nPrintAllStudents();
+                else library.nPrintAllBooks();
+                break;
+            case SCREEN_NEW:
+                if (args == 0) {
+                    Student temp = printNewStudent();
+                    library.nAddStudent(temp);
+                }
+                else {
+                    Book temp = printNewBook();
+                    library.nAddBook(temp);
+                }
+                break;
+            case SCREEN_SORT_BOOKS:
+                printSortBooks(args);
+                if (args == 2) library.sortBooksByAuthor();
+                else if (args == 3) library.sortBooksByPublishedDate();
+                else if (args == 3) library.sortBooksByBorrowedCount();
+                else library.sortBooksByTitle();
+                break;
+            case SCREEN_BORROW:
+                int bookId, studentId;
+                printBorrow1();
+                library.nPrintAllBooks();
+                printBorrow2(args);
+                bookId = args;
+                library.nPrintAllStudents();
+                printBorrow3(args);
+                studentId = args;
+                library.nBorrowBook(bookId, studentId);
+                break;
+            case SCREEN_RETURN:
+                printReturn1();
+                library.nPrintAllBooks();
+                printReturn2(args);
+                library.nReturnBook(args);
+                break;
+            case SCREEN_EXIT:
+                cout << "### Exit program.\n";
+                //library.writeData();
+                library.nWriteData();
                 break;
             default:
                 break;
@@ -150,6 +201,9 @@ void navigate(Screen& screen, int& args) {
 
     else if (input[0] == '7') {
         screen = SCREEN_RETURN;
+    }
+    else {
+        screen = SCREEN_DEFAULT;
     }
 
     cout << "\n\n\n";
