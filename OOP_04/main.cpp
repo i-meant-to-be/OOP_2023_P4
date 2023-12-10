@@ -15,7 +15,6 @@ enum Screen {
     SCREEN_MAIN_MENU,
     SCREEN_SHOW,
     SCREEN_NEW,
-    SCREEN_SEARCH,
     SCREEN_SORT_BOOKS,
     SCREEN_DEFAULT,
     SCREEN_BORROW,
@@ -26,7 +25,8 @@ enum Screen {
 void navigate(Screen& screen, int& args);
 void printMainMenu();
 void printShow(const int args);
-void printNew(const int args);
+Student printNewStudent();
+Book printNewBook();
 void printSortBooks(int& args);
 void printBorrow1();
 void printBorrow2(int& args);
@@ -58,10 +58,14 @@ int main() {
                 else library.printAllBooks();
                 break;
             case SCREEN_NEW:
-                printNew(args);
-                break;
-            case SCREEN_SEARCH:
-                printNew(args);
+                if (args == 0) {
+                    Student temp = printNewStudent();
+                    library.addStudent(temp);
+                }
+                else {
+                    Book temp = printNewBook();
+                    library.addBook(temp);
+                }
                 break;
             case SCREEN_SORT_BOOKS:
                 printSortBooks(args);
@@ -88,6 +92,8 @@ int main() {
                 library.returnBook(args);
                 break;
             case SCREEN_EXIT:
+                cout << "### Exit program.\n";
+                library.writeData();
                 break;
             default:
                 break;
@@ -95,11 +101,10 @@ int main() {
 
             cout << "\n\n\n";
         }
-
-        library.writeData();
     }
     else {
-
+        cout << "### An error occured while reading the data. Terminate program.\n";
+        return 0;
     }
 
     return 0;
@@ -136,22 +141,14 @@ void navigate(Screen& screen, int& args) {
         args = 1;
     }
     else if (input[0] == '5') {
-        screen = SCREEN_SEARCH;
-        args = 0;
-    }
-    else if (input[0] == '6') {
-        screen = SCREEN_SEARCH;
-        args = 1;
-    }
-    else if (input[0] == '7') {
         screen = SCREEN_SORT_BOOKS;
     }
 
-    else if (input[0] == '8') {
+    else if (input[0] == '6') {
         screen = SCREEN_BORROW;
     }
 
-    else if (input[0] == '9') {
+    else if (input[0] == '7') {
         screen = SCREEN_RETURN;
     }
 
@@ -168,11 +165,9 @@ void printMainMenu() {
     cout << "  - 2. Show all books \n";
     cout << "  - 3. Add new student \n";
     cout << "  - 4. Add new book \n";
-    cout << "  - 5. Search students \n";
-    cout << "  - 6. Search books \n";
-    cout << "  - 7. Sort books \n";
-    cout << "  - 8. Borrow book \n";
-    cout << "  - 9. Return book \n";
+    cout << "  - 5. Sort books \n";
+    cout << "  - 6. Borrow book \n";
+    cout << "  - 7. Return book \n";
     cout << "  - 0. Save changes and exit \n\n";
 
     cout << "# Enter number: ";
@@ -184,10 +179,35 @@ void printShow(const int args) {
     cout << "----------------------------------------\n\n";
 }
 
-void printNew(const int args) {
+Student printNewStudent() {
     cout << "----------------------------------------\n";
-    cout << format("### Add new {}\n", (args == 0 ? "student" : "book"));
+    cout << "### Add new student\n";
     cout << "----------------------------------------\n\n";
+
+    String buffer;
+
+    cout << "\n### Please enter name of new student: ";
+    getline(cin, buffer);
+    
+    return Student(buffer);
+}
+
+Book printNewBook() {
+    cout << "----------------------------------------\n";
+    cout << "### Add new book\n";
+    cout << "----------------------------------------\n\n";
+
+    String buffer[3];
+
+    cout << "\n### Please enter informations of new book: \n";
+    cout << "  - Book title: ";
+    getline(cin, buffer[0]);
+    cout << "  - Author: ";
+    getline(cin, buffer[1]);
+    cout << "  - Published date (XXXX-XX-XX): ";
+    getline(cin, buffer[2]);
+
+    return Book(buffer[0], buffer[1], buffer[2]);
 }
 
 void printSearch(const int args) {

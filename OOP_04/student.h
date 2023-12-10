@@ -20,6 +20,7 @@ private:
 public:
     // Constructor
     Student();
+    Student(const String& n);
     Student(const String& n, int id);
     Student(const String& n, int id, bool o, int c);
     Student(const String& n, int id, vector<int> bl, bool o, int c);
@@ -32,6 +33,7 @@ public:
 
     // Setter
     void setIsOverdue(bool value);
+    void setId(int value);
 
     // Methods
     void increaseOverdueCount();

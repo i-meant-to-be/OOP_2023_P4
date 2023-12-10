@@ -21,6 +21,7 @@ private:
 public:
     // Constructor
     Book();
+    Book(const String& t, const String& a, const String& p);
     Book(const String& t, const String& a, const String& p, int id);
     Book(const String& t, const String& a, const String& p, int id, bool b, int c, int sId);
 
@@ -37,6 +38,7 @@ public:
     // Setter
     void setIsBorrowed(bool value);
     void setStudentId(int value);
+    void setId(int value);
 
     // Methods
     void increaseBorrowedCount();

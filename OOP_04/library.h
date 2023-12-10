@@ -39,6 +39,8 @@ public:
     // Add elements
     void addBook(const String& title, const String& author, const String& pubDate);
     void addStudent(const String& name);
+    void addBook(Book& book);
+    void addStudent(Student& student);
 
     // Borrow and return books
     void borrowBook(int bookId, int studentId);

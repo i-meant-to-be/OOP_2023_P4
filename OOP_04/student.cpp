@@ -10,6 +10,10 @@ Student::Student()
 	: name(""), id(-1), isOverdue(false), overdueCount(-1) {
 	// Nothing to do
 }
+Student::Student(const String& n)
+    : name(n), id(-1), isOverdue(false), overdueCount(0) {
+	// Nothing to do
+}
 Student::Student(const String& n, int id)
     : name(n), id(id), isOverdue(false), overdueCount(0) {
 	// Nothing to do
@@ -48,6 +52,9 @@ bool Student::canBorrow() const {
 // Setter
 void Student::setIsOverdue(bool value) {
     isOverdue = value;
+}
+void Student::setId(int value) {
+    id = value;
 }
 
 // Methods

@@ -52,6 +52,16 @@ void Library::addStudent(const String& name) {
     students.emplace_back(name, currStudentId++);
 }
 
+void Library::addBook(Book& book) {
+    book.setId(currBookId++);
+    books.push_back(book);
+}
+
+void Library::addStudent(Student& student) {
+    student.setId(currStudentId++);
+    students.push_back(student);
+}
+
 // Borrow and return books
 void Library::borrowBook(int bookId, int studentId) {
     if (bookId < 0 || bookId >= books.size() || studentId < 0 || studentId >= students.size()) {

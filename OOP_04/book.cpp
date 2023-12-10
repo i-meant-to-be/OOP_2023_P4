@@ -10,6 +10,10 @@ Book::Book()
 	: title(""), author(""), pubDate(""), id(-1), isBorrowed(false), borrowedCount(0), studentId(-1) {
 	// Nothing to do
 }
+Book::Book(const String& t, const String& a, const String& p)
+	: title(t), author(a), pubDate(p), id(-1), isBorrowed(false), borrowedCount(0), studentId(-1) {
+	// Nothing to do
+}
 Book::Book(const String& t, const String& a, const String& p, int id)
 	: title(t), author(a), pubDate(p), id(id), isBorrowed(false), borrowedCount(0), studentId(-1) {
 	// Nothing to do
@@ -59,6 +63,9 @@ void Book::setIsBorrowed(bool value) {
 }
 void Book::setStudentId(int value) {
     studentId = value;
+}
+void Book::setId(int value) {
+    id = value;
 }
 
 // Methods
