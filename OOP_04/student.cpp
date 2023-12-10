@@ -48,6 +48,9 @@ bool Student::getIsOverdue() const {
 bool Student::canBorrow() const {
     return !isOverdue;
 }
+const vector<int>& Student::getBookList() {
+    return bookList;
+}
 
 // Setter
 void Student::setIsOverdue(bool value) {

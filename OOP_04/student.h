@@ -30,6 +30,7 @@ public:
     int getId() const;
     bool getIsOverdue() const;
     bool canBorrow() const;
+    const vector<int>& getBookList();
 
     // Setter
     void setIsOverdue(bool value);

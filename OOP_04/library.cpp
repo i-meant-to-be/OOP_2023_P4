@@ -261,12 +261,15 @@ void Library::nPrintAllStudents() {
     if (!nStudents.empty()) {
         for (int i = 0; i < nStudents.size(); i++) {
             cout << format(
-                "  - {}.\t {}\n",
+                "# {}.\t {}\n",
                 nStudents[i].getId(),
                 nStudents[i].getName()
             );
+            for (int bookId : nStudents[i].getBookList()) {
+                cout << format("  - {} / {} \n", nBooks[bookId].getTitle(), nBooks[bookId].getAuthor());
+            }
         }
-        cout << format("\n# Total {} student{} are registered on the service. \n", students.size(), (students.size() == 1 ? "" : "s"));
+        cout << format("\n# Total {} student{} are registered on the service. \n", nStudents.size(), (nStudents.size() == 1 ? "" : "s"));
     }
     else {
         cout << "# There isn't any students registered on the service. \n";
@@ -277,7 +280,7 @@ void Library::nPrintAllBooks() {
     if (!nBooks.empty()) {
         for (int i = 0; i < nBooks.size(); i++) {
             cout << format(
-                "  - {}.\t {} / {} / Published on {} / {} time{} borrowed / {}\n",
+                "# {}.\t {} / {} / Published on {} / {} time{} borrowed / {}\n",
                 nBooks[i].getId(),
                 nBooks[i].getTitle(),
                 nBooks[i].getAuthor(),
@@ -410,6 +413,8 @@ bool Library::nReadData() {
         // Read students from the file
         while (getline(studentFile, buffer)) {
             curr_index = 0; arr_index = 0; string_index = 0;
+            vector<int> bookParsingResult;
+            String bookParsingBuffer = result[2];
 
             while ((string_index = buffer.find("/", curr_index)) != String::npos) {
                 int len = string_index - curr_index;
@@ -420,17 +425,17 @@ bool Library::nReadData() {
             result[arr_index] = buffer.substr(curr_index);
 
             // Parsing student's book lists
-            curr_index = 0; arr_index = 0; string_index = 0;
-            vector<int> bookParsingResult;
-            String bookParsingBuffer = result[2];
+            if (!result[2].empty()) {
+                curr_index = 0; arr_index = 0; string_index = 0;
 
-            while ((string_index = bookParsingBuffer.find(",", curr_index)) != String::npos) {
-                int len = string_index - curr_index;
-                bookParsingResult.emplace_back(atoi(bookParsingBuffer.substr(curr_index, len).c_str()));
-                curr_index = string_index + 1;
+                while ((string_index = bookParsingBuffer.find(",", curr_index)) != String::npos) {
+                    int len = string_index - curr_index;
+                    bookParsingResult.emplace_back(atoi(bookParsingBuffer.substr(curr_index, len).c_str()));
+                    curr_index = string_index + 1;
+                }
+                string_index = bookParsingBuffer.find(",", curr_index);
+                bookParsingResult.emplace_back(atoi(bookParsingBuffer.substr(curr_index).c_str()));
             }
-            string_index = bookParsingBuffer.find(",", curr_index);
-            bookParsingResult.emplace_back(atoi(bookParsingBuffer.substr(curr_index).c_str()));
 
             // Insert the student into vector<Student>
             nStudents.emplace(
@@ -440,7 +445,7 @@ bool Library::nReadData() {
                 Student(
                     result[0],
                     atoi(result[1].c_str()),
-                    bookParsingResult,
+                    (!result[3].empty() ? bookParsingResult : vector<int>()),
                     (result[3] == "true" ? true : false),
                     atoi(result[4].c_str())
                 )
